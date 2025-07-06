@@ -1,4 +1,4 @@
-name: tailnord-${INSTANCE_NAME}
+version: '3.8'
 
 services:
   tailscale:
@@ -16,8 +16,11 @@ services:
       - "./tailscale/scripts:/scripts"
     environment:
       - TAILSCALE_UP_LOGIN_SERVER=${TAILSCALE_UP_LOGIN_SERVER}
+      # 이 IP_NORDVPN이 tailscale_up.sh 스크립트에서 사용된다면 유지
       - IP_NORDVPN=${IP_NORDVPN}
       - INSTANCE_NAME=${INSTANCE_NAME}
+      # IP_SUBNET 변수도 필요하다면 추가
+      # - IP_SUBNET=${IP_SUBNET}
     cap_add:
       - net_admin
       - sys_module
@@ -48,6 +51,8 @@ services:
       - NORDVPN_TECHNOLOGY=${NORDVPN_TECHNOLOGY}
       - NORDVPN_OPENVPN_PROTOCOL=${NORDVPN_OPENVPN_PROTOCOL}
       - IP_SUBNET=${IP_SUBNET}
+      # 이전에 추가했던 Tailscale UDP 포트 허용 변수 다시 추가
+      - ENV_NETWORK_PORTS=4164/udp
     volumes:
       - "/dev/net/tun:/dev/net/tun"
       - "./nordvpn/scripts:/scripts"
@@ -64,4 +69,3 @@ networks:
     ipam:
       config:
         - subnet: ${IP_SUBNET}
-

@@ -1,4 +1,3 @@
-# docker-compose.yml
 version: '3.8'
 
 services:
@@ -7,9 +6,9 @@ services:
     # Container name will be 'tailnord-tailscale-myinstance' (based on .env)
     container_name: tailnord-tailscale-${INSTANCE_NAME}
     hostname: tailnord-tailscale
-    command: [
-      '/scripts/tailscale_up.sh'
-    ]
+    #command: [
+    #  '/scripts/tailscale_up.sh'
+    #]
     user: root
     restart: always
     volumes:
@@ -69,3 +68,4 @@ networks:
     ipam:
       config:
         - subnet: ${IP_SUBNET} # Network subnet for the Docker bridge network
+
